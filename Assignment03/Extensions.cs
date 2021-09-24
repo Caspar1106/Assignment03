@@ -15,6 +15,22 @@ namespace Assignment03
                 }
             }
         }
+
+        public static IEnumerable<T> Filter<T>(this IEnumerable<T> items, Predicate<T> predicate)
+        {
+            foreach (var t in items)
+            {
+                if (predicate(t))
+                {
+                    yield return t;
+                }
+            }
+        }
+
+        public static bool isSecure(this Uri uri)
+        {
+            return uri.Scheme == Uri.UriSchemeHttps;
+        }
     }
 
 }
