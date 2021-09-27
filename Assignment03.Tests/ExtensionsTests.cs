@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 using System.Collections.Generic;
-
+using static Assignment03.Extensions;
 
 namespace Assignment03.Tests
 {
@@ -17,6 +17,40 @@ namespace Assignment03.Tests
             var expected = new List<int>() { 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5 };
 
             Assert.Equal(expected, output);
+
+        }
+
+        [Fact]
+        public void Names_Of_Wizards_By_Rowling()
+        {
+
+            List<string> expected = new List<string> {"Hagrid", "Happy Potter", "Hermione Granger", 
+                                                    "Ron Weasley", "Tom Riddle"};
+
+            Assert.Equal(expected.AsReadOnly(), WizardNamesByCreator("Rowling"));
+
+        }
+
+        [Fact]
+        public void Year_Of_First_Sith_Lord_Returns_1947(){
+
+            Assert.Equal(1947, YearOfFirstSithLord());
+        }
+
+        [Fact]
+        public void All_Unique_HP_Wizards(){
+
+            var expected = new List<(string, int)>
+            {
+                ("Happy Potter", 2001), 
+                ("Hermione Granger", 2001), 
+                ("Ron Weasley", 2001),
+                ("Tom Riddle", 2001), 
+                ("Hagrid", 2001)
+            };
+
+            Assert.Equal(expected, uniqueHPWizards());
+
 
         }
     }
