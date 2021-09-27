@@ -56,10 +56,17 @@ namespace Assignment03.Tests
         }
 
         [Fact]
-        public void Filter_isLeapYear_Returns_1860_and_2000()
+        public void URI_IsSecure_returns_true()
         {
-            Uri uri = new Uri("https://example.contoso.com");
-            
+            Uri uri = new Uri("https://example.myExample.com");
+            Assert.True(uri.isSecure());
+        }
+
+        [Fact]
+        public void wordCount_returns_4()
+        {
+            var s = "this is my string";
+            Assert.Equal(4, s.wordCount());
         }
 
         public static bool Even(int i)

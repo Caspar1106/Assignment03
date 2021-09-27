@@ -31,6 +31,11 @@ namespace Assignment03
         {
             return uri.Scheme == Uri.UriSchemeHttps;
         }
+
+        public static int wordCount(this string s) {
+            var temp = s.Split(" ");
+            return temp.Length;
+        }
     }
 
 }
