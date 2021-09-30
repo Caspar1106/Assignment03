@@ -28,6 +28,7 @@ namespace Assignment03.Tests
                                                     "Ron Weasley", "Tom Riddle"};
 
             Assert.Equal(expected.AsReadOnly(), WizardNamesByCreator("Rowling"));
+            Assert.Equal(expected.AsReadOnly(), WizardNamesByCreatorLINQ("Rowling"));
 
         }
 
@@ -35,6 +36,7 @@ namespace Assignment03.Tests
         public void Year_Of_First_Sith_Lord_Returns_1947(){
 
             Assert.Equal(1947, YearOfFirstSithLord());
+            Assert.Equal(1947, YearOfFirstSithLordLINQ());
         }
 
         [Fact]
@@ -50,8 +52,18 @@ namespace Assignment03.Tests
             };
 
             Assert.Equal(expected, uniqueHPWizards());
-
+            Assert.Equal(expected, uniqueHPWizardsLINQ());
 
         }
-    }
+
+        [Fact]
+        public void Wizard_Names_Ordered_By_Reverse_Creator_Then_Names(){
+
+            var expected = new List<string>{"Alatar", "Gandalf", "Radagast", "Sauron", "Hagrid", "Happy Potter", "Hermione Granger", "Ron Weasley", "Tom Riddle", "Darth Maul", "Darth Vader", "Geralt", "Yennefer"};
+            
+            Assert.Equal(expected.AsReadOnly(), WizardsOrderedByCreatorAndName());
+            Assert.Equal(expected.AsReadOnly(), WizardsOrderedByCreatorAndNameLINQ());
+        }
+    
+}
 }

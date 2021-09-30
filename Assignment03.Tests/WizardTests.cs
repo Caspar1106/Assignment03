@@ -6,15 +6,15 @@ namespace Assignment03.Tests
     public class WizardTests
     {
         [Fact]
-        public void Wizards_contains_13_wizards()
+        public void Wizards_contains_14_wizards()
         {
             var wizards = Wizard.Wizards.Value;
 
-            Assert.Equal(13, wizards.Count);
+            Assert.Equal(14, wizards.Count);
         }
 
         [Theory]
-        [InlineData("Darth Vader", "Star Wars", 1977, "George Lucas")]
+        [InlineData("Darth Vader", "Star Wars", 1987, "George Lucas")]
         [InlineData("Sauron", "The Fellowship of the Ring", 1954, "J.R.R. Tolkien")]
         [InlineData("Happy Potter","Harry Potter and the Philosopher's Stone",2001,"J. K. Rowling")]
         [InlineData("Hermione Granger","Harry Potter and the Philosopher's Stone",2001,"J. K. Rowling")]

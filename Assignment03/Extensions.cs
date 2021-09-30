@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assignment03
 {
@@ -18,53 +19,90 @@ namespace Assignment03
 
         public static IReadOnlyCollection<string> WizardNamesByCreator (string sName){
 
-            var wiList = new List<string>();
+            
             var wizards = Wizard.Wizards.Value;
+            var listards = wizards.Where(w => w.Creator.Contains(sName)).Select(w => w.Name).Distinct().ToList();
+            listards.Sort();
+            return listards;
+            
+        
+        }
 
-            foreach(Wizard w in wizards){
+        public static IReadOnlyCollection<string> WizardNamesByCreatorLINQ(string sName){
 
-                if (w.Creator.Contains(sName))wiList.Add(w.Name);
-
-            }
-            wiList.Sort();
-            return wiList.AsReadOnly();
-
+            var wizards = Wizard.Wizards.Value;
+            var listards = (from w in wizards
+                            where w.Creator.Contains(sName)
+                            select w.Name).Distinct().ToList();
+            listards.Sort();
+            return (IReadOnlyCollection<string> )listards.AsReadOnly();
         }
 
         public static int YearOfFirstSithLord(){
 
-            var wiList = new List<int>();
             var wizards = Wizard.Wizards.Value;
+            var sithyear = wizards.Where(w => w.Name.Contains("Darth"))
+                                  .OrderBy(w => w.Year)
+                                  .Select(w => w.Year.GetValueOrDefault());
 
-            foreach(Wizard w in wizards){
+            return sithyear.ElementAt(0);
 
-                if (w.Name.Contains("Darth"))wiList.Add(w.Year.GetValueOrDefault());
+        }
 
+        public static int YearOfFirstSithLordLINQ(){
 
-            }
-
-            wiList.Sort((x,y) => x.CompareTo(y));
-            return wiList[0];
+            var wizards = Wizard.Wizards.Value;
+            var sithyear = (from w in wizards
+                            where w.Name.Contains("Darth")
+                            orderby w.Year
+                            select w.Year.GetValueOrDefault()).ToList().AsReadOnly();
+            return sithyear.ElementAt(0);
 
         }
 
         public static IReadOnlyCollection<(string, int)> uniqueHPWizards(){
 
-            var wiList = new List<(string, int)>();
             var wizards = Wizard.Wizards.Value;
+            var listards = wizards.Where(w => w.Medium.Contains("Harry Potter"))
+                                  .GroupBy(w => w.Name)
+                                  .Select(w => (w.First().Name, w.First().Year.GetValueOrDefault())).ToList();
 
-            foreach(Wizard w in wizards){
-
-                if(w.Medium.StartsWith("Harry Potter") /* && !wizards.Contains(x => x.Item1 == w.Name)*/) wiList.Add((w.Name, w.Year.GetValueOrDefault()));
-
-            }
-
-            return wiList.AsReadOnly();
+            return listards.AsReadOnly();
 
 
 
         }
 
+        public static IReadOnlyCollection<(string, int)> uniqueHPWizardsLINQ(){
+
+            var wizards = Wizard.Wizards.Value;
+            var listards = (from w in wizards
+                           where w.Medium.Contains("Harry Potter")
+                           group w by w.Name into w
+                           select (w.First().Name, w.First().Year.GetValueOrDefault())).Distinct().ToList();
+
+            return listards.AsReadOnly();
+
+
+        }
+
+        public static IReadOnlyCollection<string> WizardsOrderedByCreatorAndName(){
+
+            var wizards = Wizard.Wizards.Value;
+            var listards = wizards.OrderByDescending(w => w.Creator).ThenBy(w => w.Name).Select(w => w.Name).Distinct().ToList();
+            return listards.AsReadOnly();
+
+        }
+
+        public static IReadOnlyCollection<string> WizardsOrderedByCreatorAndNameLINQ(){
+
+            var wizards = Wizard.Wizards.Value;
+            var listards = (from w in wizards
+                           orderby w.Creator descending, w.Name
+                           select w.Name).Distinct().ToList();
+
+            return listards.AsReadOnly();
+        }
         
 
 
