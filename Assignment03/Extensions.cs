@@ -20,6 +20,7 @@ namespace Assignment03
             }
         }
 
+
         public static IReadOnlyCollection<string> WizardNamesByCreator (string sName){
 
             
@@ -101,6 +102,27 @@ namespace Assignment03
         
 
 
+
+        public static IEnumerable<T> Filter<T>(this IEnumerable<T> items, Predicate<T> predicate)
+        {
+            foreach (var t in items)
+            {
+                if (predicate(t))
+                {
+                    yield return t;
+                }
+            }
+        }
+
+        public static bool isSecure(this Uri uri)
+        {
+            return uri.Scheme == Uri.UriSchemeHttps;
+        }
+
+        public static int wordCount(this string s) {
+            var temp = s.Split(" ");
+            return temp.Length;
+        }
     }
 
 }
